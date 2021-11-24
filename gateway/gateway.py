@@ -7,8 +7,8 @@ import serial.tools.list_ports as serialtool
 # Broker Configurations
 HOST_NAME = "io.adafruit.com"   # using Adafruit IO server
 HOST_PORT = 8883                # secure connection
-USERNAME  = "_angelus"
-PASSWORD  = "aio_MkfU397QoXQKt6ZGeG6BMbZGksG1"
+USERNAME  = "***"
+PASSWORD  = "***"
 
 # Gateway Configurations
 GATEWAY_ID  = "GTW002"
