@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="dashboardViewModel"
+            type="com.hescul.adafruitdb.ui.dashboard.DashboardViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_temperature"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#252424"
+        android:hapticFeedbackEnabled="false"
+        tools:context=".ui.dashboard.TemperatureFragment">
+
+        <TextView
+            android:id="@+id/textTemperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="100dp"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/temperatureBar"
+            android:textColor="@color/material_on_primary_emphasis_high_type"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/temperatureGuidelineTop"
+            app:layout_constraintStart_toEndOf="@+id/temperatureBackButton"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/temperatureGuidelineTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_begin="73dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/temperatureBackButton"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="54dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="16dp"
+            android:contentDescription="@string/back_description"
+            android:drawableEnd="@drawable/ic_back"
+            app:layout_constraintBottom_toTopOf="@+id/temperatureGuidelineTop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/temperatureGuidelineBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_end="73dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/temperatureIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="@{dashboardViewModel.isConnected() ? 1.0F : 0.3F}"
+            android:contentDescription="@string/temperature_icon_description"
+            android:src="@{dashboardViewModel.isConnected() ? @drawable/ic_temperature : @drawable/ic_temperature_error}"
+            app:layout_constraintBottom_toTopOf="@+id/temperatureGuidelineBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/temperatureGuidelineTop"
+            tools:srcCompat="@drawable/ic_temperature" />
+
+        <TextView
+            android:id="@+id/temperatureValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="@{dashboardViewModel.isConnected() ? 1.0F : 0.3F}"
+            android:text="@{dashboardViewModel.temperatureValue + dashboardViewModel.temperatureSuffix}"
+            android:textColor="@{dashboardViewModel.isConnected() ? @color/activeState : @color/error}"
+            android:gravity="center"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/temperatureIcon"
+            tools:text="40*C"
+            tools:textColor="@color/activeState"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

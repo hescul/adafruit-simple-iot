@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Adafruit Dashboard</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="gateway_status">GATEWAY STATUS</string>
+    <string name="indicator_description">indicate whether gateway is online or not</string>
+    <string name="ledCard">LED:</string>
+    <string name="servoCard">SERVO:</string>
+    <string name="temperatureCard">TEMPERATURE:</string>
+    <string name="humidityCard">HUMIDITY:</string>
+    <string name="ledBar">LED</string>
+    <string name="servoBar">SERVO</string>
+    <string name="temperatureBar">TEMPERATURE</string>
+    <string name="setting_description">navigate to setting page</string>
+    <string name="ledStatusOn">ON</string>
+    <string name="ledStatusOff">OFF</string>
+    <string name="ledTurnOn">TURN ON</string>
+    <string name="ledTurnOff">TURN OFF</string>
+    <string name="back_description">back to dashboard</string>
+    <string name="empty" />
+    <string name="led_description">show led status</string>
+    <string name="cover">cover the dashboard interface</string>
+    <string name="error_message">Please retry.</string>
+    <string name="retry_button_description">refresh connection</string>
+    <string name="servo_description">represents servo</string>
+    <string name="servo_foreground_description">change servo icon thickness</string>
+    <string name="temperature_icon_description">represents temperature</string>
+</resources>

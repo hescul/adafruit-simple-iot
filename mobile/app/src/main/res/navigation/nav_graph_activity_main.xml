@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.hescul.adafruitdb.ui.dashboard.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/dashboardToLed"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@android:anim/fade_out"
+            app:destination="@id/ledFragment" />
+        <argument
+            android:name="backFromChild"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/dashboardToServo"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@android:anim/fade_out"
+            app:destination="@id/servoFragment" />
+        <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@android:anim/fade_out"
+            android:id="@+id/dashboardToTemperature"
+            app:destination="@id/temperatureFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ledFragment"
+        android:name="com.hescul.adafruitdb.ui.dashboard.LedFragment"
+        android:label="fragment_led"
+        tools:layout="@layout/fragment_led" >
+        <action
+            android:id="@+id/ledToDashboard"
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popUpTo="@id/navigation_graph" />
+    </fragment>
+    <fragment
+        android:id="@+id/servoFragment"
+        android:name="com.hescul.adafruitdb.ui.dashboard.ServoFragment"
+        android:label="ServoFragment"
+        tools:layout="@layout/fragment_servo">
+        <action
+            android:id="@+id/servoToDashboard"
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popUpTo="@id/navigation_graph" />
+    </fragment>
+    <fragment
+        android:id="@+id/temperatureFragment"
+        android:name="com.hescul.adafruitdb.ui.dashboard.TemperatureFragment"
+        android:label="TemperatureFragment"
+        tools:layout="@layout/fragment_temperature">
+        <action
+            android:id="@+id/temperatureToDashboard"
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popUpTo="@id/navigation_graph" />
+    </fragment>
+</navigation>

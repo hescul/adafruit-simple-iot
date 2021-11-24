@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="dashboardViewModel"
+            type="com.hescul.adafruitdb.ui.dashboard.DashboardViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_servo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#252424"
+        android:hapticFeedbackEnabled="false"
+        tools:context=".ui.dashboard.ServoFragment">
+
+        <TextView
+            android:id="@+id/textServo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="100dp"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/servoBar"
+            android:textColor="@color/material_on_primary_emphasis_high_type"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/servoGuidelineTop"
+            app:layout_constraintStart_toEndOf="@+id/servoBackButton"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/servoGuidelineTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_begin="73dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/servoBackButton"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="54dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="16dp"
+            android:contentDescription="@string/back_description"
+            android:drawableEnd="@drawable/ic_back"
+            app:layout_constraintBottom_toTopOf="@+id/servoGuidelineTop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/servoGuidelineBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_end="73dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <SeekBar
+            android:id="@+id/servoSeekBar"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:max="@{dashboardViewModel.servoMax}"
+            android:min="@{dashboardViewModel.servoMin}"
+            android:progressBackgroundTint="@color/dbButton"
+            android:progressTint="@{dashboardViewModel.isConnected() ? @color/activeState : @color/error}"
+            android:thumbTint="@{dashboardViewModel.isConnected() ? @color/activeState : @color/error}"
+            android:scaleX="2"
+            android:scaleY="2"
+            android:progress="@{Integer.valueOf(dashboardViewModel.servoValue)}"
+            android:alpha="@{dashboardViewModel.isConnected() ? 1.0F : 0.3F}"
+            app:layout_constraintBottom_toTopOf="@+id/servoGuidelineBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/servoIcon" />
+
+        <ImageView
+            android:id="@+id/servoIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/servo_description"
+            android:alpha="@{dashboardViewModel.isConnected() ? 1.0F : 0.3F}"
+            android:src="@{dashboardViewModel.isConnected() ? @drawable/ic_servo : @drawable/ic_servo_error}"
+            app:layout_constraintBottom_toTopOf="@+id/servoSeekBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/servoGuidelineTop"
+            tools:srcCompat="@drawable/ic_servo" />
+
+        <TextView
+            android:id="@+id/servoValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:gravity="center"
+            android:alpha="@{dashboardViewModel.isConnected() ? 1.0F : 0.3F}"
+            android:text="@{dashboardViewModel.servoValue + dashboardViewModel.servoSuffix}"
+            android:textColor="@{dashboardViewModel.isConnected() ? @color/activeState : @color/error}"
+            android:textSize="48sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/servoForeground"
+            app:layout_constraintEnd_toEndOf="@+id/servoForeground"
+            app:layout_constraintStart_toStartOf="@+id/servoForeground"
+            app:layout_constraintTop_toTopOf="@+id/servoForeground" />
+
+        <ImageView
+            android:id="@+id/servoForeground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/servo_foreground_description"
+            android:src="@drawable/ic_servo_foreground"
+            app:layout_constraintBottom_toBottomOf="@+id/servoIcon"
+            app:layout_constraintEnd_toEndOf="@+id/servoIcon"
+            app:layout_constraintStart_toStartOf="@+id/servoIcon"
+            app:layout_constraintTop_toTopOf="@+id/servoIcon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

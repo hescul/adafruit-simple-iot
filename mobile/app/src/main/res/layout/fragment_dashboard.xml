@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="dashboardViewModel"
+            type="com.hescul.adafruitdb.ui.dashboard.DashboardViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_dashboard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/appBG"
+        android:elevation="0dp"
+        tools:context=".ui.dashboard.DashboardFragment">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/appBar"
+            app:layout_constraintBottom_toTopOf="@+id/dashboardGuidelineTop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/textToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/app_name"
+            android:textColor="@color/material_on_primary_emphasis_high_type"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+            app:layout_constraintStart_toStartOf="@id/toolbar"
+            app:layout_constraintTop_toTopOf="@id/toolbar" />
+
+        <TextView
+            android:id="@+id/textGatewayStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/gateway_status"
+            android:textColor="@color/material_on_primary_emphasis_high_type"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toEndOf="@+id/drawableStatusIndicator"
+            app:layout_constraintTop_toTopOf="@+id/dashboardGuidelineBottom"
+            tools:ignore="TextContrastCheck" />
+
+        <ImageView
+            android:id="@+id/drawableStatusIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:contentDescription="@string/indicator_description"
+            android:scaleType="centerInside"
+            android:src="@{!dashboardViewModel.isConnected() ? @drawable/ic_status_indicator_error : dashboardViewModel.gtwStatus.equals(dashboardViewModel.gtwStatusActive) ? @drawable/ic_status_indicator_on : @drawable/ic_status_indicator_off}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/dashboardGuidelineBottom" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/dashboardGuidelineBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_end="73dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textServoStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="78dp"
+            android:elevation="100dp"
+            android:fontFamily="sans-serif-black"
+            android:alpha="@{dashboardViewModel.isConnected() ? 1.0F : 0.6F}"
+            android:text='@{dashboardViewModel.servoValue + dashboardViewModel.servoSuffix}'
+            android:textColor='@{!dashboardViewModel.isConnected() ? @color/error : @color/activeState}'
+            app:layout_constraintBottom_toBottomOf="@+id/servoButton"
+            app:layout_constraintStart_toStartOf="@+id/servoButton"
+            app:layout_constraintTop_toTopOf="@+id/servoButton" />
+
+        <TextView
+            android:id="@+id/textLedStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="55dp"
+            android:elevation="100dp"
+            android:fontFamily="sans-serif-black"
+            android:alpha="@{dashboardViewModel.isConnected() ? 1.0F : 0.6F}"
+            android:text='@{dashboardViewModel.ledStatus}'
+            android:textColor='@{!dashboardViewModel.isConnected() ? @color/error : dashboardViewModel.ledStatus.equals(dashboardViewModel.ledStatusOn) ? @color/activeState : @color/nonactiveState}'
+            app:layout_constraintBottom_toBottomOf="@+id/ledButton"
+            app:layout_constraintStart_toStartOf="@+id/ledButton"
+            app:layout_constraintTop_toTopOf="@+id/ledButton" />
+
+        <TextView
+            android:id="@+id/textTemperatureValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="140dp"
+            android:elevation="100dp"
+            android:fontFamily="sans-serif-black"
+            android:alpha="@{dashboardViewModel.isConnected() ? 1.0F : 0.6F}"
+            android:text="@{dashboardViewModel.temperatureValue + dashboardViewModel.temperatureSuffix}"
+            android:textColor='@{!dashboardViewModel.isConnected() ? @color/error : @color/activeState}'
+            app:layout_constraintBottom_toBottomOf="@+id/temperatureButton"
+            app:layout_constraintStart_toStartOf="@+id/temperatureButton"
+            app:layout_constraintTop_toTopOf="@+id/temperatureButton"/>
+
+        <TextView
+            android:id="@+id/textHumidityValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="105dp"
+            android:elevation="100dp"
+            android:fontFamily="sans-serif-black"
+            android:alpha="@{dashboardViewModel.isConnected() ? 1.0F : 0.6F}"
+            android:text="@{dashboardViewModel.humidityValue + dashboardViewModel.humiditySuffix}"
+            android:textColor='@{!dashboardViewModel.isConnected() ? @color/error : @color/activeState}'
+            app:layout_constraintBottom_toBottomOf="@+id/humidityButton"
+            app:layout_constraintStart_toStartOf="@+id/humidityButton"
+            app:layout_constraintTop_toTopOf="@+id/humidityButton"/>
+
+        <Button
+            android:id="@+id/ledButton"
+            android:layout_width="160dp"
+            android:layout_height="70dp"
+            android:clickable="@{!safeUnbox(dashboardViewModel.isConnecting())}"
+            android:fontFamily="sans-serif-black"
+            android:gravity="start|center_vertical"
+            android:paddingHorizontal="15dp"
+            android:text="@string/ledCard"
+            android:textColor="@color/material_on_primary_emphasis_high_type"
+            app:layout_constraintBottom_toTopOf="@+id/temperatureButton"
+            app:layout_constraintEnd_toStartOf="@+id/servoButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dashboardErrorMessage"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/servoButton"
+            android:layout_width="160dp"
+            android:layout_height="70dp"
+            android:clickable="@{!safeUnbox(dashboardViewModel.isConnecting())}"
+            android:fontFamily="sans-serif-black"
+            android:gravity="start|center_vertical"
+            android:paddingHorizontal="15dp"
+            android:text="@string/servoCard"
+            android:textColor="@color/material_on_primary_emphasis_high_type"
+            app:layout_constraintBottom_toTopOf="@+id/temperatureButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ledButton"
+            app:layout_constraintTop_toBottomOf="@+id/dashboardErrorMessage"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/temperatureButton"
+            android:layout_width="350dp"
+            android:layout_height="70dp"
+            android:clickable="@{!safeUnbox(dashboardViewModel.isConnecting())}"
+            android:fontFamily="sans-serif-black"
+            android:gravity="start|center_vertical"
+            android:paddingHorizontal="15dp"
+            android:text="@string/temperatureCard"
+            android:textColor="@color/material_on_primary_emphasis_high_type"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ledButton"
+            app:layout_constraintBottom_toTopOf="@+id/humidityButton" />
+
+        <Button
+            android:id="@+id/humidityButton"
+            android:layout_width="350dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="220dp"
+            android:clickable="@{!safeUnbox(dashboardViewModel.isConnecting())}"
+            android:fontFamily="sans-serif-black"
+            android:gravity="start|center_vertical"
+            android:paddingHorizontal="15dp"
+            android:text="@string/humidityCard"
+            android:textColor="@color/material_on_primary_emphasis_high_type"
+            app:layout_constraintBottom_toTopOf="@+id/dashboardGuidelineBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/temperatureButton" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/dashboardGuidelineTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_begin="73dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/dashboardCover"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="@{dashboardViewModel.isConnecting() ? 0.6F : 0.0F}"
+            android:contentDescription="@string/cover"
+            android:elevation="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/dashboardGuidelineTop"
+            app:srcCompat="@android:drawable/screen_background_dark"
+            tools:ignore="ImageContrastCheck"
+            tools:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/dashboardProgressBoard"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="@{dashboardViewModel.isConnecting() ? 1.0F : 0.0F}"
+            android:elevation="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/dashboardGuidelineTop"
+            tools:visibility="gone" />
+
+        <TextView
+            android:id="@+id/dashboardErrorMessage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:alpha="@{dashboardViewModel.isConnected() || dashboardViewModel.isConnecting() ? 0.0F : 1.0F}"
+            android:background="@color/error"
+            android:gravity="center_horizontal|center_vertical"
+            android:padding="5dp"
+            android:text="@{dashboardViewModel.errorMessage}"
+            android:textColor="@color/material_on_primary_emphasis_high_type"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <ImageButton
+            android:id="@+id/refreshButton"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="8dp"
+            android:alpha="@{dashboardViewModel.isConnecting() || dashboardViewModel.isConnected() ? 0.5F : 1.0F}"
+            android:clickable="@{!(dashboardViewModel.isConnecting() || dashboardViewModel.isConnected())}"
+            android:contentDescription="@string/retry_button_description"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar"
+            app:srcCompat="@drawable/ic_baseline_sync_24" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/dashboardErrorGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_begin="102dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
