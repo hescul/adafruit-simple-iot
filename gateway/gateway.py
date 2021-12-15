@@ -52,13 +52,13 @@ greeting    = True  # flag to indicate whether this is the first time we connect
 reinit      = False # flag to call init() procedure on reconnect
 texceed     = False # flag to indicate we've reached maximum blocking time
 failcount   = 0     # count attempts on fail activity
-msg         = ''
+msg         = ''    # hold buffer message read from serial
 
 # ---------------------------------- SHARED-MEMORY -----------------------------------
-messageBuffer = queue.Queue()
-devicesBuffer = queue.Queue()
-terminate     = False
-scanning      = False
+messageBuffer = queue.Queue()   # holds incoming messages
+devicesBuffer = queue.Queue()   # holds outgoing messages
+terminate     = False   # control thread termination
+scanning      = False   # flag to indicate initial setup
 
 
 # ------------------------------- CALLBACK DEFINITIONS -------------------------------
