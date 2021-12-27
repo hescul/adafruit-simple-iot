@@ -8,7 +8,7 @@ const int servoPIN = 12;
 const int servoMin = 100;
 const int servoMax = 180;
 
-const int publishTime = 20000;   // publish every 20s
+const int publishDelay = 20000;   // publish every 20s
 unsigned long myTime  = millis();
 
 enum Topic {
@@ -56,7 +56,7 @@ void loop() {
     } // !payload > 0
   } // !serial.available()
   
-  if (millis() - myTime > publishTime) {
+  if (millis() - myTime > publishDelay) {
     myTime = millis();
     Serial.print("!1:temperature:" + String(random(0, 100)) + "#");
     Serial.print("!1:humidity:" + String(random(0, 100)) + "#");
