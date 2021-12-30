@@ -1,2 +1,5 @@
-# latex document folder
+# document file
 report/*.pdf
+
+# graphic design file
+report/*.fig
