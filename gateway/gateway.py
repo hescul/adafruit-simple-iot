@@ -7,8 +7,8 @@ import serial.tools.list_ports as serialtool
 # Broker Configurations
 HOST_NAME = "io.adafruit.com"   # using Adafruit IO server
 HOST_PORT = 8883                # secure connection
-USERNAME  = "***"
-PASSWORD  = "***"
+USERNAME  = "_angelus"
+PASSWORD  = "aio_BqyU66W9G0PT0TlMCFnM8U0KJdEY"
 
 # Gateway Configurations
 GATEWAY_ID  = "GTW002"
@@ -39,7 +39,7 @@ class col:
     good    = '\033[92m'
     bad     = '\033[31m'
     user    = '\033[0;95m'
-    topic   = '\033[1;37m'
+    topic   = '\033[0;30m'
     message = '\033[0;94m'
     stage   = '\033[0;93m'
     esc     = '\033[0m'
@@ -59,6 +59,7 @@ messageBuffer = queue.Queue()   # holds incoming messages
 devicesBuffer = queue.Queue()   # holds outgoing messages
 terminate     = False   # control thread termination
 scanning      = False   # flag to indicate initial setup
+timerexit     = False   # control timer termination
 
 
 # ------------------------------- CALLBACK DEFINITIONS -------------------------------
@@ -148,10 +149,11 @@ def publish(payload, topic):
     pub.wait_for_publish()
     # if publishing to subscribed topic
     if topic in SUBSCRIBE_TOPICS:
-        global block, texceed
+        global block, texceed, timerexit
         # then block thread until having fully filtered out the owning message
         block = True
         texceed = False
+        timerexit = False
         taskTiming = threading.Thread(target=timer) # only block for the maximum time decided by the timer
         taskTiming.start()
         while block:
@@ -159,6 +161,9 @@ def publish(payload, topic):
                 print(f"{col.bad}[WARNING]{col.esc} Reached maximum waiting time for validating own message. Continuing...")
                 taskTiming.join()
                 block = False
+        if taskTiming.is_alive():
+            timerexit = True
+            taskTiming.join()
 
 def getport():
     ports = serialtool.comports()
@@ -216,6 +221,8 @@ def timer():
     global texceed
     count = 0
     while True:
+        if timerexit:
+            break
         time.sleep(1.0)
         count = count + 1
         if count == TIME_OUT:
