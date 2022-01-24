@@ -1,5 +1,2 @@
-# document file
-report/*.pdf
-
-# graphic design file
-report/*.fig
+# report folder
+report/
