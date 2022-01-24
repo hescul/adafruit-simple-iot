@@ -1,2 +1,6 @@
-# report folder
-report
+# report resources
+report/*.tex	# tex script
+report/*.fig	# figma desgin
+report/sections
+report/screenshots
+report/graphics
