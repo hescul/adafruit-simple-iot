@@ -1,6 +1,2 @@
-# report resources
-report/*.tex	# tex script
-report/*.fig	# figma desgin
-report/sections
-report/screenshots
-report/graphics
+# report file
+*.pdf
